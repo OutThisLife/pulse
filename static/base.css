@@ -1,0 +1,52 @@
+:root {
+  --cells: 40;
+  --cellSize: calc(100vw / var(--cells));
+
+  --bg: #0A0A0A;
+  --thead: #1B1B1B;
+  --form: #003B5A;
+  --border: #2E2E2E;
+
+  --fontSize: calc(11px + (12 - 11) * (100vw - 400px) / 1600);
+}
+
+@media (min-width: 2000px) {
+  :root {
+    --cellSize: 50px;
+  }
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  font-size: var(--fontSize);
+  letter-spacing: -0.01em;
+  box-sizing: border-box;
+}
+
+html {
+  color: #FFF;
+  font-family: monospace;
+  line-height: 1.5;
+}
+
+body {
+  background: var(--bg);
+}
+
+figure {
+  margin: 0;
+  padding: 0;
+}
+
+img, svg, canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: #FFF;
+}
