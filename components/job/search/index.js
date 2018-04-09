@@ -28,7 +28,12 @@ input {
 }
 `
 
-export default () =>
+export default ({ search }) =>
   <Search action='javascript:;'>
-    <input type='text' name='s' placeholder='What do you want to watch? #breaking, #usdcad, ...' />
+    <input
+      type='text'
+      name='s'
+      defaultValue={search}
+      placeholder='What do you want to watch? #breaking, #usdcad, ...'
+    />
   </Search>

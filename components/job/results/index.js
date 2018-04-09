@@ -44,17 +44,17 @@ grid-template-columns: auto auto 1fr;
 }
 `
 
-export default () =>
+export default ({ results = [] }) =>
   <Results>
     <div>Time</div>
     <div>Source</div>
     <div>Title (click for story)</div>
 
-    {[...Array(10).keys()].map(() =>
+    {results.map(({ time, source, title }) =>
       <Fragment key={Math.random()}>
-        <div>09/09/18 14:33:22</div>
-        <div>twitter</div>
-        <div>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugiat iusto molestiae, totam culpa ducimus illum, eos sint ea, nisi tempore debitis! Placeat molestias alias neque quibusdam numquam, culpa corrupti iure.</div>
+        <div>{time}</div>
+        <div>{source}</div>
+        <div>{title}</div>
       </Fragment>
     )}
   </Results>
