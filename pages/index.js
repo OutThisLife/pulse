@@ -1,6 +1,7 @@
 // @flow
 import styled from 'styled-components'
 
+import Time from '../components/time'
 import Search from '../components/search'
 import Graph from '../components/graph'
 import Results from '../components/results'
@@ -26,6 +27,8 @@ grid-auto-rows: minmax(max-content, var(--cellSize));
 
 export default (): Element<'any'> =>
   <Section>
+    <Time />
+
     <Section start={3} end={20}>
       <Search />
       <Graph />
