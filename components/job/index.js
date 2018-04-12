@@ -1,43 +1,44 @@
 // @flow
 import { lifecycle } from 'recompose'
-import greenlet from 'greenlet'
 
 import Section from '../section'
 import Search from './search'
 import Graph from './graph'
 import Results from './results'
 
+import crawl from '../../services/crawl'
+const results = crawl.send({
+  url: 'https://twitter.com/search?f=tweets&vertical=news&q=%23syria&src=typd',
+  selectors: {
+    parent: '.tweet',
+    title: '.tweet-text',
+    time: '._timestamp@data-time-ms',
+    url: '.js-permalink@href'
+  }
+})
+
+results.on('message', console.log)
+
 export default lifecycle({
   state: {
     search: '#syria',
-    results: [{
-      time: '09/09/18 14:14:14',
-      source: 'twitter',
-      title: 'Lorem ipsum dolar sit amet'
-    }, {
-      time: '09/09/18 14:14:14',
-      source: 'twitter',
-      title: 'Lorem ipsum dolar sit amet'
-    }]
-  },
-
-  componentDidMount () {
-    // xray('https://blog.ycombinator', 'post', [{
-    //   title: 'h1 a',
-    //   link: '.article-title@href',
-    //   source: 'hackernews'
-    // }])((err, results) => {
-    //   if (err) {
-    //     throw new Error(err)
-    //   }
-
-    //   this.setState({ results })
-    // })
+    results: [
+      {
+        time: '09/09/18 14:14:14',
+        source: 'twitter',
+        title: 'Lorem ipsum dolar sit amet'
+      },
+      {
+        time: '09/09/18 14:14:14',
+        source: 'twitter',
+        title: 'Lorem ipsum dolar sit amet'
+      }
+    ]
   }
-})(props =>
+})(props => (
   <Section {...props}>
     <Search {...props} />
     <Graph {...props} />
     <Results {...props} />
   </Section>
-)
+))
