@@ -18,9 +18,12 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "body-parser": "^1.18.2",
     "compression": "^1.7.2",
+    "emit-file-loader": "^0.0.1",
     "express": "^4.16.3",
+    "file-loader": "^1.1.11",
     "isomorphic-fetch": "^2.2.1",
     "next": "^5.1.0",
+    "raw-loader": "^0.5.1",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
     "recompose": "^0.26.0",
@@ -29,11 +32,12 @@
     "x-ray": "^2.3.2"
   },
   "devDependencies": {
-    "babel-eslint": "^8.2.2",
-    "eslint": "^4.19.1",
-    "eslint-plugin-flowtype": "^2.46.1",
-    "flow": "^0.2.3",
-    "flow-bin": "^0.69.0",
-    "standard": "^11.0.1"
+    "babel-eslint": "latest",
+    "eslint": "latest",
+    "eslint-plugin-flowtype": "latest",
+    "eslint-plugin-flowtype-errors": "latest",
+    "eslint-plugin-react": "latest",
+    "flow-bin": "latest",
+    "prettier": "latest"
   }
 }

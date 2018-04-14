@@ -1,22 +1,23 @@
 // @flow
 import Document, { Head, Main, NextScript } from 'next/document'
-import { ServerStyleSheet } from 'styled-components'
+import { injectGlobal, ServerStyleSheet } from 'styled-components'
+import styles from './styles.scss'
+
+injectGlobal`${styles}`
 
 export default class MyDocument extends Document {
-  static getInitialProps ({ renderPage }) {
+  static getInitialProps({ renderPage }) {
     const sheet = new ServerStyleSheet()
     const page = renderPage(App => props => sheet.collectStyles(<App {...props} />))
     const styleTags = sheet.getStyleElement()
     return { ...page, styleTags }
   }
 
-  render () {
+  render() {
     return (
       <html>
         <Head>
           <title>World Pulse</title>
-
-          <link rel='stylesheet' href='/static/base.css' />
 
           {this.props.styleTags}
         </Head>

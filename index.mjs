@@ -1,6 +1,5 @@
 import next from 'next'
 import express from 'express'
-import compression from 'compression'
 import parser from 'body-parser'
 import Xray from 'x-ray'
 
@@ -10,23 +9,23 @@ const dev = env.NODE_ENV !== 'production'
 
 const app = next({ dev })
 const handle = app.getRequestHandler(app)
-const x = Xray()
 
 app.prepare().then(() => {
   express()
     .use(parser.json())
-    .use(compression())
-
     .post('/crawl', (req, res, next) => {
+      const x = Xray()
       const { url, selectors } = req.body
       const { parent, ...children } = selectors
 
-      const s = x(url, {
+      x(url, {
         title: 'title',
         items: x(parent, [children])
       })
         .stream()
         .pipe(res)
+
+      return next()
     })
 
     .use(handle)
