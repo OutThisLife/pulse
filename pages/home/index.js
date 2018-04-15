@@ -9,6 +9,8 @@ import Search from './search'
 import Feed from './feed'
 
 const Home = styled(Section)`
+  padding-bottom: var(--cellSize);
+
   img + img {
     margin-top: var(--cellSize);
   }
@@ -30,9 +32,9 @@ const Home = styled(Section)`
   }
 
   iframe {
-    border: 0;
     width: 100%;
     height: 18%;
+    border: 0;
   }
 `
 
