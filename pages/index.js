@@ -6,7 +6,7 @@ import { pure } from 'recompose'
 import BG from '../components/bg'
 import Section from '../components/section'
 
-export default () => (
+export default pure(() => (
   <Fragment>
     <Head>
       <script src="https://cdn.jsdelivr.net/combine/npm/three@0.91.0,npm/three@0.91.0/examples/js/controls/OrbitControls.min.js" />
@@ -16,4 +16,4 @@ export default () => (
 
     <Section>i go here.</Section>
   </Fragment>
-)
+))
