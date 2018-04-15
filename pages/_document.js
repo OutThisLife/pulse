@@ -1,7 +1,6 @@
-// @flow
 import Document, { Head, Main, NextScript } from 'next/document'
 import { injectGlobal, ServerStyleSheet } from 'styled-components'
-import styles from './styles.scss'
+import styles from './styles'
 
 injectGlobal`${styles}`
 

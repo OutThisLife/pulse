@@ -21,6 +21,7 @@
     "emit-file-loader": "^0.0.1",
     "express": "^4.16.3",
     "file-loader": "^1.1.11",
+    "gsap": "^1.20.4",
     "isomorphic-fetch": "^2.2.1",
     "next": "^5.1.0",
     "raw-loader": "^0.5.1",
@@ -29,15 +30,15 @@
     "recompose": "^0.26.0",
     "styled-components": "^3.2.5",
     "threads": "^0.10.1",
+    "three": "^0.91.0",
     "x-ray": "^2.3.2"
   },
   "devDependencies": {
-    "babel-eslint": "latest",
-    "eslint": "latest",
-    "eslint-plugin-flowtype": "latest",
-    "eslint-plugin-flowtype-errors": "latest",
-    "eslint-plugin-react": "latest",
-    "flow-bin": "latest",
-    "prettier": "latest"
+    "babel-eslint": "^8",
+    "eslint": "^4",
+    "eslint-plugin-flowtype": "^2",
+    "eslint-plugin-flowtype-errors": "^3",
+    "eslint-plugin-react": "^7",
+    "flow-bin": "0.69.0"
   }
 }

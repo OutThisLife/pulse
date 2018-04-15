@@ -1,7 +1,7 @@
 [ignore]
-.*/.next/*.
-.*/.out/*.
-.*/node_modules/*.
+<PROJECT_ROOT>/.next/.*
+<PROJECT_ROOT>/.out/.*
+<PROJECT_ROOT>/node_modules/.*
 
 [libs]
 flow-typed/
@@ -11,13 +11,7 @@ flow-typed/
 [lints]
 
 [options]
-module.name_mapper='^@'->'<PROJECT_ROOT>/app'
-
-module.name_mapper='react' -> '{}'
-module.name_mapper='styled-components' -> '{}'
-module.name_mapper='react-dom' -> '{}'
-module.name_mapper='^@invision' -> '{}'
-module.name_mapper='^next' -> '{}'
+module.name_mapper='^@'->'<PROJECT_ROOT>'
 
 module.file_ext=.js
 module.file_ext=.json

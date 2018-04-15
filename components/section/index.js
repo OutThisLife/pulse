@@ -2,10 +2,17 @@
 import { pure } from 'recompose'
 import styled from 'styled-components'
 
+type Props = {
+  start: number,
+  end: number,
+  row: string | number,
+  align: string
+}
+
 const Section = styled.section.attrs({
-  style: ({ start = 3, end = -3, row = 'auto', align = 'initial' }) => ({
+  style: ({ start = 3, end = -3, row, align = 'initial' }: Props) => ({
     gridColumn: `${start} / ${end}`,
-    gridRow: row,
+    gridRow: row || 'auto',
     alignItems: align
   })
 })`

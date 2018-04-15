@@ -1,3 +1,3 @@
-declare var React: $Exports<'react'>
-declare type Element<+C> = React$Element<C>
-declare type Node = React$Node
+// @flow
+import * as r from 'react'
+declare var React: r
