@@ -69,15 +69,16 @@ export default pure(({ items = [] }: { items: {}[] }) => (
       .map(({ title, url, time }) => (
         <article key={`feed@${url}`}>
           <time>
-            <a href={url} target='_blank' rel='noreferrer noopener' alt={time}>
+            <a href={url} target="_blank" rel="noreferrer noopener" alt={time}>
               {moment(parseInt(time)).fromNow()}
             </a>
           </time>
 
-          <Linkify properties={{
-            target: '_blank',
-            rel: 'noreferrer noopener'
-          }}>
+          <Linkify
+            properties={{
+              target: '_blank',
+              rel: 'noreferrer noopener'
+            }}>
             {title}
           </Linkify>
         </article>

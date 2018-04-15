@@ -47,15 +47,20 @@ export default compose(
   withState('data', 'setData', []),
   withState('loading', 'setLoading', false),
   withHandlers(() => ({
-    onSubmit: ({ data, setLoading, setData }) => ({ target: { s: { value } }}) => {
+    onSubmit: ({ data, setLoading, setData }) => ({
+      target: {
+        s: { value }
+      }
+    }) => {
       setLoading(true)
 
       clearInterval(int)
-      const fetch = () => fromTwitter(value, newData => {
-        if (newData !== data) {
-          window.requestAnimationFrame(() => setData(newData, () => setLoading(false)))
-        }
-      })
+      const fetch = () =>
+        fromTwitter(value, newData => {
+          if (newData !== data) {
+            window.requestAnimationFrame(() => setData(newData, () => setLoading(false)))
+          }
+        })
 
       fetch()
       int = setInterval(fetch, 1000)
@@ -67,26 +72,27 @@ export default compose(
       <Search onSubmit={onSubmit} />
     </Section.Item>
 
-    {!loading && data.length > 0 &&
-      <Fragment>
-        <Section.Item row={2} start={4} end={14}>
-          <Feed items={data} />
-        </Section.Item>
+    {!loading &&
+      data.length > 0 && (
+        <Fragment>
+          <Section.Item row={2} start={4} end={14}>
+            <Feed items={data} />
+          </Section.Item>
 
-        <Section.Item row={2} start={15} end={26}>
-          <Media items={data} />
-        </Section.Item>
+          <Section.Item row={2} start={15} end={26}>
+            <Media items={data} />
+          </Section.Item>
 
-        <Section.Item row={2} start={27} end={-4}>
-          <Streams items={data} />
-        </Section.Item>
-      </Fragment>
-    }
+          <Section.Item row={2} start={27} end={-4}>
+            <Streams items={data} />
+          </Section.Item>
+        </Fragment>
+      )}
 
-    {loading &&
+    {loading && (
       <Section.Item>
         <p>Loading</p>
       </Section.Item>
-    }
+    )}
   </Home>
 ))

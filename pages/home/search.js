@@ -33,7 +33,12 @@ const Search = styled.form`
 `
 
 export default pure(props => (
-  <Search action='javascript:;' method='get' {...props}>
-    <input type="text" name='s' autoComplete="off" placeholder="Enter tags like #syria, #trump, #oil to see what the world is saying." />
+  <Search action="javascript:;" method="get" {...props}>
+    <input
+      type="text"
+      name="s"
+      autoComplete="off"
+      placeholder="Enter tags like #syria, #trump, #oil to see what the world is saying."
+    />
   </Search>
 ))

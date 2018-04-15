@@ -15,12 +15,16 @@ export default withHandlers(() => ({
     <div>
       <h2>Media</h2>
 
-      {items.filter(i => i.video || i.image).map(({ video, image }) =>
-        video ?
-          <video key={`media@${video}`} src={video} controls />
-        :
-          <img key={`media@${image}`} src={image} onLoad={imgLoad} />
-      )}
+      {items
+        .filter(i => i.video || i.image)
+        .map(
+          ({ video, image }) =>
+            video ? (
+              <video key={`media@${video}`} src={video} controls />
+            ) : (
+              <img key={`media@${image}`} src={image} onLoad={imgLoad} />
+            )
+        )}
     </div>
   ))
 )
