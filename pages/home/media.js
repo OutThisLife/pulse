@@ -16,7 +16,11 @@ export default withHandlers(() => ({
       <h2>Media</h2>
 
       {items
-        .filter(i => i.video || i.image)
+        .filter(
+          (item, index, self) =>
+            (item.video || item.image) &&
+            self.findIndex(t => t.image === item.image && t.video === item.video) === index
+        )
         .map(
           ({ video, image }) =>
             video ? (
