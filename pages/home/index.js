@@ -31,10 +31,20 @@ const Home = styled(Section)`
     }
   }
 
-  iframe {
+  .iframe-container {
+    position: relative;
     width: 100%;
-    height: 18%;
-    border: 0;
+    height: 0px;
+    padding-top: 56.3%;
+
+    iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
   }
 `
 
@@ -55,7 +65,10 @@ export default pure(() => (
 
     <Section.Item row={2} start={26} end={-4}>
       <h2>Livestreams</h2>
-      <iframe src="https://www.youtube.com/embed/1DRNmZcVAEM" allowfullscreen />
+
+      <div className="iframe-container">
+        <iframe src="https://www.youtube.com/embed/1DRNmZcVAEM" allowfullscreen />
+      </div>
     </Section.Item>
   </Home>
 ))
