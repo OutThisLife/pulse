@@ -1,8 +1,18 @@
 // @flow
-import { compose, withState, withHandlers } from 'recompose'
+import { pure } from 'recompose'
 import styled from 'styled-components'
 import { TweenLite } from 'gsap'
-import faker from 'faker'
+import moment from 'moment'
+import Linkify from 'react-linkify'
+
+/**
+TweenLite.from($feed.children[0], 1, {
+  opacity: 0,
+  height: 0,
+  paddingTop: 0,
+  paddingBottom: 0
+}, 0)
+ */
 
 const Feed = styled.div`
   position: sticky;
@@ -21,41 +31,28 @@ const Feed = styled.div`
   }
 
   article {
-    overflow: hidden;
-    padding: calc(var(--cellSize) / 2);
-    background: rgba(0, 0, 0, 0.5);
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 82px 1fr;
 
     + article {
       margin-top: calc(var(--cellSize) / 2);
     }
 
-    header {
-      display: flex;
-      align-items: center;
-      padding-bottom: 15px;
+    span {
+      grid-column: 2 / -1;
+      word-break: break-word;
+      padding: calc(var(--cellSize) / 2);
+      background: rgba(0, 0, 0, 0.5);
+    }
 
-      time {
-        opacity: 0.3;
-        margin-left: auto;
-
-        a {
-          filter: grayscale(1);
-        }
-      }
-
-      > a:hover {
-        text-decoration: none;
-
-        span {
-          text-decoration: underline;
-        }
-      }
-
-      i {
-        filter: grayscale(1);
-        opacity: 0.3;
-        margin-right: 8px;
-      }
+    time {
+      grid-column: 1 / 1;
+      opacity: 0.6;
+      display: block;
+      text-align: right;
+      filter: grayscale(1);
+      margin-bottom: 5px;
     }
   }
 
@@ -64,68 +61,25 @@ const Feed = styled.div`
   }
 `
 
-type Props = {
-  onRef: Function,
-  items: {}[]
-}
-
-export default compose(
-  withState('items', 'setItems', []),
-  withHandlers(() => {
-    return {
-      onRef: ({ setItems }) => (ref: ?HTMLElement) => {
-        if (!ref) {
-          return
-        }
-
-        const $feed = document.getElementById('feed')
-
-        setItems(items => {
-          items.push(faker.lorem.sentence())
-          return items
-        })
-
-        setInterval(
-          () =>
-            setItems(
-              items => {
-                items.push(faker.lorem.sentence())
-                return items
-              },
-              () => {
-                // prettier-ignore
-                TweenLite.from($feed.children[0], 1, {
-                  opacity: 0,
-                  height: 0,
-                  paddingTop: 0,
-                  paddingBottom: 0
-                }, 0)
-              }
-            ),
-          3500
-        )
-      }
-    }
-  })
-)(({ onRef, items = [] }: Props) => (
-  <Feed ref={onRef} id="feed">
+export default pure(({ items = [] }: { items: {}[] }) => (
+  <Feed id="feed">
     {items
       .slice()
       .reverse()
-      .map(i => (
-        <article key={Math.random()}>
-          <header>
-            <a href="javascript:;">
-              <i className="zocial-twitter" />
-              <span>@username</span>
+      .map(({ title, url, time }) => (
+        <article key={`feed@${url}`}>
+          <time>
+            <a href={url} target='_blank' rel='noreferrer noopener' alt={time}>
+              {moment(parseInt(time)).fromNow()}
             </a>
+          </time>
 
-            <time>
-              <a href="javascript:;">3 seconds ago</a>
-            </time>
-          </header>
-
-          <p>{i}</p>
+          <Linkify properties={{
+            target: '_blank',
+            rel: 'noreferrer noopener'
+          }}>
+            {title}
+          </Linkify>
         </article>
       ))}
   </Feed>

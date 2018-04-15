@@ -24,8 +24,6 @@ app.prepare().then(() => {
       })
         .stream()
         .pipe(res)
-
-      return next()
     })
 
     .use(handle)

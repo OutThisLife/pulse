@@ -1,12 +1,7 @@
 // @flow
 import { spawn } from 'threads'
 
-type Args = {
-  url: string,
-  selectors: []
-}
-
-export default spawn(({ url = 'http://www.reddit.com', selectors = [] }: Args) =>
+const crawl = () => spawn(({ url = 'http://www.reddit.com', selectors = [] }: { url: string, selectors: [] }) =>
   fetch('http://localhost:3000/crawl', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -14,14 +9,24 @@ export default spawn(({ url = 'http://www.reddit.com', selectors = [] }: Args) =
   }).then(r => r.json())
 )
 
-// const results = crawl.send({
-//   url: 'https://twitter.com/search?f=tweets&vertical=news&q=%23syria&src=typd',
-//   selectors: {
-//     parent: '.tweet',
-//     title: '.tweet-text',
-//     time: '._timestamp@data-time-ms',
-//     url: '.js-permalink@href'
-//   }
-// })
+let thread
+export const fromTwitter = (keyword: string, cb: Function) => {
+  if (!thread) {
+    thread = crawl()
+    thread.on('message', ({ items }: { items: [] }) => {
+      cb(items.sort((a, b) => parseInt(a.time) > parseInt(b.time)))
+    })
+  }
 
-// results.on('message', console.log)
+  thread.send({
+    url: `https://twitter.com/search?f=tweets&vertical=news&q=${encodeURIComponent(keyword)}&src=typd`,
+    selectors: {
+      parent: '.tweet',
+      title: '.tweet-text',
+      time: '._timestamp@data-time-ms',
+      url: '.js-permalink@href',
+      video: '.AdaptiveMedia-container video@src',
+      image: '.AdaptiveMedia-container img@src'
+    }
+  })
+}

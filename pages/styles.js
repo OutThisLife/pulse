@@ -66,9 +66,11 @@ export default css`
 
   img,
   svg,
-  canvas {
+  canvas,
+  video {
     max-width: 100%;
     height: auto;
+    border: 0;
   }
 
   a {

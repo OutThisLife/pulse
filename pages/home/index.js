@@ -1,12 +1,16 @@
 // @flow
-import { pure } from 'recompose'
-import faker from 'faker'
+import { Fragment } from 'react'
+import { compose, withState, withHandlers } from 'recompose'
 import styled from 'styled-components'
+
 import theme from '../../utils/theme'
+import { fromTwitter } from '../../utils/crawl'
 
 import Section from '../../components/section'
 import Search from './search'
 import Feed from './feed'
+import Media from './media'
+import Streams from './streams'
 
 const Home = styled(Section)`
   padding-bottom: var(--cellSize);
@@ -19,7 +23,7 @@ const Home = styled(Section)`
     font-size: ${theme.scale(32, 41)};
     line-height: 1.3;
     font-weight: 300;
-    margin: 0 0 calc(var(--cellSize) / 2);
+    margin: 0 0 var(--cellSize);
 
     &:after {
       content: '';
@@ -30,45 +34,59 @@ const Home = styled(Section)`
       background: #fff;
     }
   }
-
-  .iframe-container {
-    position: relative;
-    width: 100%;
-    height: 0px;
-    padding-top: 56.3%;
-
-    iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
-  }
 `
 
-export default pure(() => (
+type Props = {
+  data: {}[],
+  onSubmit: Function
+}
+
+let int = null
+
+export default compose(
+  withState('data', 'setData', []),
+  withState('loading', 'setLoading', false),
+  withHandlers(() => ({
+    onSubmit: ({ setLoading, setData }) => ({ target: { s: { value } }}) => {
+      setData([])
+      setLoading(true)
+
+      clearInterval(int)
+      const fetch = () => fromTwitter(value, data => {
+        setLoading(false)
+        setData(data)
+      })
+
+      fetch()
+      int = setInterval(fetch, 1000)
+    }
+  }))
+)(({ data, loading, onSubmit }: Props) => (
   <Home>
     <Section.Item start={3}>
-      <Search />
+      <Search onSubmit={onSubmit} />
     </Section.Item>
 
-    <Section.Item row={2} start={4} end={12}>
-      <Feed />
-    </Section.Item>
+    {data.length > 0 &&
+      <Fragment>
+        <Section.Item row={2} start={4} end={14}>
+          <Feed items={data} />
+        </Section.Item>
 
-    <Section.Item row={2} start={13} end={25}>
-      <h2>Images / Videos</h2>
-      {[...Array(5).keys()].map(() => <img key={Math.random()} src="https://picsum.photos/458/354" />)}
-    </Section.Item>
+        <Section.Item row={2} start={15} end={26}>
+          <Media items={data} />
+        </Section.Item>
 
-    <Section.Item row={2} start={26} end={-4}>
-      <h2>Livestreams</h2>
+        <Section.Item row={2} start={27} end={-4}>
+          <Streams items={data} />
+        </Section.Item>
+      </Fragment>
+    }
 
-      <div className="iframe-container">
-        <iframe src="https://www.youtube.com/embed/1DRNmZcVAEM" allowfullscreen />
-      </div>
-    </Section.Item>
+    {loading &&
+      <Section.Item>
+        <p>Loading</p>
+      </Section.Item>
+    }
   </Home>
 ))

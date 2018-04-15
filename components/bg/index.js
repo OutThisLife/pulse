@@ -1,5 +1,6 @@
 // @flow
 import { pure, withHandlers } from 'recompose'
+import * as THREE from 'three'
 
 export default withHandlers(() => ({
   onRef: () => (ref: ?HTMLElement) => {

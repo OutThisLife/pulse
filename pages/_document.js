@@ -18,8 +18,6 @@ export default class MyDocument extends Document {
         <Head>
           <title>World Pulse</title>
           {this.props.styleTags}
-
-          <script src="https://cdn.jsdelivr.net/combine/npm/three@0.91.0,npm/three@0.91.0/examples/js/controls/OrbitControls.min.js" />
         </Head>
 
         <body>
