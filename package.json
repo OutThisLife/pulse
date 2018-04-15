@@ -29,6 +29,7 @@
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
     "recompose": "^0.26.0",
+    "serve": "^6.5.5",
     "styled-components": "^3.2.5",
     "threads": "^0.10.1",
     "x-ray": "^2.3.2"

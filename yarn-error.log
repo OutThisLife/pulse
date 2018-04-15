@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js build
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js start
 
 PATH: 
   C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;c:\programdata\oracle\java\javapath;c:\program files\common files\microsoft shared\windows live;c:\program files (x86)\common files\microsoft shared\windows live;c:\ruby23-x64\bin;c:\windows\system32;c:\windows;c:\windows\system32\wbem;c:\windows\system32\windowspowershell\v1.0\;c:\program files\git\cmd;c:\program files (x86)\windows live\shared;C:\Go\bin;C:\TDM-GCC-64\bin;C:\Program Files (x86)\GtkSharp\2.12\bin;C:\Program Files\Git\cmd;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\xampp\php;C:\ProgramData\ComposerSetup\bin;C:\Program Files\TortoiseSVN\bin;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;C:\Program Files (x86)\sbt\bin;C:\Users\OutThisLife\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files\nodejs\;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\Java\jdk1.8.0_111\bin;C:\cygwin64\bin;C:\TDM-GCC-64\bin;C:\Program Files\Heroku\bin;C:\Users\OutThisLife\AppData\Roaming\Composer\vendor\bin;C:\Program Files (x86)\sbt\bin;C:\Program Files\Microsoft VS Code\bin;C:\Users\OutThisLife\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Users\OutThisLife\AppData\Roaming\npm;C:\Users\OutThisLife\AppData\Local\Yarn\bin;C:\Users\OutThisLife\AppData\Local\atom\bin
@@ -5811,7 +5811,7 @@ Trace:
   Error: Command failed.
   Exit code: 1
   Command: c:\windows\system32\cmd.exe
-  Arguments: /d /s /c next build && next export
+  Arguments: /d /s /c serve out/
   Directory: C:\www\sideProjects\pulse
   Output:
   

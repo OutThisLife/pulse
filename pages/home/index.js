@@ -60,7 +60,7 @@ export default pure(() => (
 
     <Section.Item row={2} start={13} end={25}>
       <h2>Images / Videos</h2>
-      {[...Array(5).keys()].map(() => <img src={faker.random.image()} />)}
+      {[...Array(5).keys()].map(() => <img key={Math.random()} src="https://picsum.photos/458/354" />)}
     </Section.Item>
 
     <Section.Item row={2} start={26} end={-4}>
