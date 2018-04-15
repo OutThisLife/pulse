@@ -1,6 +1,7 @@
 // @flow
 import { Fragment } from 'react'
 import { compose, withState, withHandlers } from 'recompose'
+import { TweenLite } from 'gsap'
 import styled from 'styled-components'
 
 import theme from '../../utils/theme'
@@ -14,6 +15,10 @@ import Streams from './streams'
 
 const Home = styled(Section)`
   padding-bottom: var(--cellSize);
+
+  input {
+    transform: translate(0, 40vh);
+  }
 
   img + img {
     margin-top: var(--cellSize);
@@ -47,16 +52,21 @@ export default compose(
   withState('data', 'setData', []),
   withState('loading', 'setLoading', false),
   withHandlers(() => ({
-    onSubmit: ({ data, setLoading, setData }) => ({
-      target: {
-        s: { value }
-      }
-    }) => {
+    onSubmit: ({ data, setLoading, setData }) => ({ target: { s } }) => {
       setLoading(true)
+
+      TweenLite.to(
+        s,
+        0.25,
+        {
+          y: 0
+        },
+        0
+      )
 
       clearInterval(int)
       const fetch = () =>
-        fromTwitter(value, newData => {
+        fromTwitter(s.value, newData => {
           if (newData !== data) {
             window.requestAnimationFrame(() => setData(newData, () => setLoading(false)))
           }
