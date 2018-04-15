@@ -47,14 +47,14 @@ export default compose(
   withState('data', 'setData', []),
   withState('loading', 'setLoading', false),
   withHandlers(() => ({
-    onSubmit: ({ setLoading, setData }) => ({ target: { s: { value } }}) => {
-      setData([])
+    onSubmit: ({ data, setLoading, setData }) => ({ target: { s: { value } }}) => {
       setLoading(true)
 
       clearInterval(int)
-      const fetch = () => fromTwitter(value, data => {
-        setLoading(false)
-        setData(data)
+      const fetch = () => fromTwitter(value, newData => {
+        if (newData !== data) {
+          window.requestAnimationFrame(() => setData(newData, () => setLoading(false)))
+        }
       })
 
       fetch()
@@ -67,7 +67,7 @@ export default compose(
       <Search onSubmit={onSubmit} />
     </Section.Item>
 
-    {data.length > 0 &&
+    {!loading && data.length > 0 &&
       <Fragment>
         <Section.Item row={2} start={4} end={14}>
           <Feed items={data} />
