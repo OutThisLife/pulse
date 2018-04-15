@@ -1,14 +1,14 @@
-import next from 'next'
-import express from 'express'
-import parser from 'body-parser'
-import Xray from 'x-ray'
+const next = require('next')
+const express = require('express')
+const parser = require('body-parser')
+const Xray = require('x-ray')
 
 const env = process.env
 const port = env.PORT || 3000
 const dev = env.NODE_ENV !== 'production'
 
 const app = next({ dev })
-const handle = app.getRequestHandler(app)
+const handle = app.getRequestHandler()
 
 app.prepare().then(() => {
   express()

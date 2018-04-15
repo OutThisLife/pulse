@@ -1,21 +1,21 @@
 // @flow
-import { pure } from 'recompose'
+import { setStatic, pure } from 'recompose'
 import styled from 'styled-components'
 
 type Props = {
   start: number,
-  end: number,
+  end: ?number,
   row: string | number,
   align: string
 }
 
-const Section = styled.section.attrs({
-  style: ({ start = 3, end = -3, row, align = 'initial' }: Props) => ({
-    gridColumn: `${start} / ${end}`,
-    gridRow: row || 'auto',
-    alignItems: align
-  })
-})`
+const style = ({ start = 3, end, row, align = 'initial' }: Props) => ({
+  gridColumn: `${start} / ${end || -start}`,
+  gridRow: row || 'auto',
+  alignItems: align
+})
+
+const Section = styled.section.attrs({ style })`
   display: grid;
   grid-template-columns: repeat(var(--cells), 1fr);
   grid-auto-rows: minmax(max-content, var(--cellSize));
@@ -29,4 +29,6 @@ const Section = styled.section.attrs({
   }
 `
 
-export default pure(props => <Section {...props} />)
+const Item = styled.div.attrs({ style })``
+
+export default setStatic('Item', pure(props => <Item {...props} />))(pure(props => <Section {...props} />))

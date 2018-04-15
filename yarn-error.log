@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js dev
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js remove three
 
 PATH: 
   C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;c:\programdata\oracle\java\javapath;c:\program files\common files\microsoft shared\windows live;c:\program files (x86)\common files\microsoft shared\windows live;c:\ruby23-x64\bin;c:\windows\system32;c:\windows;c:\windows\system32\wbem;c:\windows\system32\windowspowershell\v1.0\;c:\program files\git\cmd;c:\program files (x86)\windows live\shared;C:\Go\bin;C:\TDM-GCC-64\bin;C:\Program Files (x86)\GtkSharp\2.12\bin;C:\Program Files\Git\cmd;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\xampp\php;C:\ProgramData\ComposerSetup\bin;C:\Program Files\TortoiseSVN\bin;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;C:\Program Files (x86)\sbt\bin;C:\Users\OutThisLife\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files\nodejs\;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\Java\jdk1.8.0_111\bin;C:\cygwin64\bin;C:\TDM-GCC-64\bin;C:\Program Files\Heroku\bin;C:\Users\OutThisLife\AppData\Roaming\Composer\vendor\bin;C:\Program Files (x86)\sbt\bin;C:\Program Files\Microsoft VS Code\bin;C:\Users\OutThisLife\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Users\OutThisLife\AppData\Roaming\npm;C:\Users\OutThisLife\AppData\Local\Yarn\bin;C:\Users\OutThisLife\AppData\Local\atom\bin
@@ -22,7 +22,7 @@ npm manifest:
     "scripts": {
       "test": "echo \"Error: no test specified\" && exit 1",
       "start": "serve out/",
-      "dev": "node --experimental-modules index.mjs",
+      "dev": "node index.js",
       "build": "next build && next export",
       "heroku-postbuild": "yarn build"
     },
@@ -36,6 +36,7 @@ npm manifest:
       "compression": "^1.7.2",
       "emit-file-loader": "^0.0.1",
       "express": "^4.16.3",
+      "faker": "^4.1.0",
       "file-loader": "^1.1.11",
       "gsap": "^1.20.4",
       "isomorphic-fetch": "^2.2.1",
@@ -46,7 +47,6 @@ npm manifest:
       "recompose": "^0.26.0",
       "styled-components": "^3.2.5",
       "threads": "^0.10.1",
-      "three": "^0.91.0",
       "x-ray": "^2.3.2"
     },
     "devDependencies": {
@@ -2387,6 +2387,10 @@ Lockfile:
   extsprintf@^1.2.0:
     version "1.4.0"
     resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.4.0.tgz#e2689f8f356fad62cca65a3a91c5df5f9551692f"
+  
+  faker@^4.1.0:
+    version "4.1.0"
+    resolved "https://registry.yarnpkg.com/faker/-/faker-4.1.0.tgz#1e45bbbecc6774b3c195fad2835109c6d748cc3f"
   
   fast-deep-equal@^1.0.0:
     version "1.1.0"
@@ -5233,10 +5237,6 @@ Lockfile:
       eventemitter3 "^2.0.2"
       native-promise-only "^0.8.1"
   
-  three@^0.91.0:
-    version "0.91.0"
-    resolved "https://registry.yarnpkg.com/three/-/three-0.91.0.tgz#033fe745b64e56e679a86581957cfd1c5f9fe284"
-  
   through2@^2.0.0:
     version "2.0.3"
     resolved "https://registry.yarnpkg.com/through2/-/through2-2.0.3.tgz#0004569b37c7c74ba39c43f3ced78d1ad94140be"
@@ -5808,16 +5808,10 @@ Lockfile:
       is-browser "2.0.1"
 
 Trace: 
-  Error: Command failed.
-  Exit code: 3221225786
-  Command: c:\windows\system32\cmd.exe
-  Arguments: /d /s /c node --experimental-modules index.mjs
-  Directory: C:\www\sideProjects\pulse
-  Output:
-  
-      at ProcessTermError.MessageError (C:\Program Files (x86)\Yarn\lib\cli.js:186:110)
-      at new ProcessTermError (C:\Program Files (x86)\Yarn\lib\cli.js:226:113)
-      at ChildProcess.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:30281:17)
-      at ChildProcess.emit (events.js:180:13)
-      at maybeClose (internal/child_process.js:936:16)
-      at Process.ChildProcess._handle.onexit (internal/child_process.js:220:5)
+  Error: This module isn't specified in a manifest.
+      at new MessageError (C:\Program Files (x86)\Yarn\lib\cli.js:186:110)
+      at Object.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:60445:15)
+      at Generator.next (<anonymous>)
+      at step (C:\Program Files (x86)\Yarn\lib\cli.js:98:30)
+      at C:\Program Files (x86)\Yarn\lib\cli.js:109:13
+      at <anonymous>

@@ -109,7 +109,7 @@ export default withHandlers(() => ({
           const dx = particlePositions[i * 3 + 0] - particlePositions[j * 3 + 0]
           const dy = particlePositions[i * 3 + 1] - particlePositions[j * 3 + 1]
           const dz = particlePositions[i * 3 + 2] - particlePositions[j * 3 + 2]
-          const dist = Math.sqrt(dx * dx + dy * dy + dz * dz)
+          const dist = Math.abs(Math.sqrt(dx * dx + dy * dy + dz * dz))
 
           if (dist < 70) {
             const alpha = 1.0 - dist / 70
@@ -149,8 +149,7 @@ export default withHandlers(() => ({
         pointerEvents: 'none',
         position: 'fixed',
         top: 0,
-        left: 0,
-        boxShadow: 'inset 0 0 200px 50px rgba(0,0,0,.7)'
+        left: 0
       }}
     />
   ))

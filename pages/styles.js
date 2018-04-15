@@ -35,7 +35,7 @@ export default css`
     background: ${theme.bg};
 
     &:before {
-      z-index: -2,
+      z-index: -2;
       pointer-events: none;
       content: '';
       opacity: 0.1;
@@ -62,5 +62,10 @@ export default css`
 
   a {
     color: ${theme.link};
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 `
