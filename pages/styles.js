@@ -48,6 +48,12 @@ export default css`
     }
   }
 
+  @import url(http://weloveiconfonts.com/api/?family=zocial);
+
+  [class*='zocial-']:before {
+    font-family: 'zocial', sans-serif;
+  }
+
   figure {
     margin: 0;
     padding: 0;
