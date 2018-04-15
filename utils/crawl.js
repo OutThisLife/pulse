@@ -1,13 +1,14 @@
 // @flow
 import { spawn } from 'threads'
 
-const crawl = () => spawn(({ url = 'http://www.reddit.com', selectors = [] }: { url: string, selectors: [] }) =>
-  fetch('http://localhost:3000/crawl', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ url, selectors })
-  }).then(r => r.json())
-)
+const crawl = () =>
+  spawn(({ url = '', selectors = [] }: { url: string, selectors: [] }) =>
+    fetch(`${location.origin}/crawl`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url, selectors })
+    }).then(r => r.json())
+  )
 
 let thread
 export const fromTwitter = (keyword: string, cb: Function) => {
