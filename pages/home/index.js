@@ -68,12 +68,20 @@ export default compose(
       const fetch = () =>
         fromTwitter(s.value, newData => {
           if (newData !== data) {
-            window.requestAnimationFrame(() => setData(newData, () => setLoading(false)))
+            window.requestAnimationFrame(() => setData(() => newData.slice().reverse(), () => setLoading(false)))
           }
         })
 
       fetch()
       int = setInterval(fetch, 1000)
+
+      document.onvisibilitychange = () => {
+        if (document.hidden) {
+          clearInterval(int)
+        } else {
+          int = setInterval(fetch, 1000)
+        }
+      }
     }
   }))
 )(({ data, loading, onSubmit }: Props) => (

@@ -53,25 +53,22 @@ const Feed = styled.div`
 
 export default pure(({ items = [] }: { items: {}[] }) => (
   <Feed id="feed">
-    {items
-      .slice()
-      .reverse()
-      .map(({ title, url, time }) => (
-        <article key={`feed@${url}`}>
-          <time>
-            <a href={url} target="_blank" rel="noreferrer noopener" alt={time}>
-              {moment(parseInt(time)).fromNow()}
-            </a>
-          </time>
+    {items.map(({ title, url, time }) => (
+      <article key={`feed@${url}`}>
+        <time>
+          <a href={url} target="_blank" rel="noreferrer noopener" alt={time}>
+            {moment(parseInt(time)).fromNow()}
+          </a>
+        </time>
 
-          <Linkify
-            properties={{
-              target: '_blank',
-              rel: 'noreferrer noopener'
-            }}>
-            {title}
-          </Linkify>
-        </article>
-      ))}
+        <Linkify
+          properties={{
+            target: '_blank',
+            rel: 'noreferrer noopener'
+          }}>
+          {title}
+        </Linkify>
+      </article>
+    ))}
   </Feed>
 ))
