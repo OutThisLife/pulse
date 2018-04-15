@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "serve out/",
+    "start": "node index.js",
     "dev": "node index.js",
-    "build": "next build && next export",
+    "build": "next build",
     "heroku-postbuild": "yarn build"
   },
   "keywords": [],

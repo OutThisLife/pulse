@@ -2,12 +2,6 @@ import { css } from 'styled-components'
 import theme from '../utils/theme'
 
 export default css`
-  @import url(http://weloveiconfonts.com/api/?family=zocial);
-
-  [class*='zocial-']:before {
-    font-family: 'zocial', sans-serif;
-  }
-
   :root {
     --cells: 40;
     --cellSize: calc(100vw / var(--cells));

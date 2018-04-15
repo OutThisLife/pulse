@@ -1,18 +1,8 @@
 // @flow
 import { pure } from 'recompose'
 import styled from 'styled-components'
-import { TweenLite } from 'gsap'
 import moment from 'moment'
 import Linkify from 'react-linkify'
-
-/**
-TweenLite.from($feed.children[0], 1, {
-  opacity: 0,
-  height: 0,
-  paddingTop: 0,
-  paddingBottom: 0
-}, 0)
- */
 
 const Feed = styled.div`
   position: sticky;
