@@ -11,7 +11,11 @@ const app = next({ dev })
 const handle = app.getRequestHandler()
 
 const scrape = async ({ url, data }) => {
-  const browser = await puppeteer.launch({ headless: true })
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: [' --no-sandbox', '--disable-setuid-sandbox']
+  })
+
   const page = await browser.newPage()
 
   await page.goto(url)
