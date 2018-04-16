@@ -38,13 +38,15 @@ type Props = {
   onSubmit: Function
 }
 
-let int = null
+let tm = null
 
 export default compose(
   withState('data', 'setData', {}),
   withState('loading', 'setLoading', false),
   withHandlers(() => ({
     onSubmit: ({ data, setLoading, setData }) => ({ target: { s } }) => {
+      clearTimeout(tm)
+
       setData([])
       setLoading(true)
 
@@ -57,24 +59,18 @@ export default compose(
         0
       )
 
-      clearInterval(int)
-      const fetch = () =>
+      const fetch = () => {
+        clearTimeout(tm)
+
         crawl(s.value, newData => {
+          tm = setTimeout(fetch, 5000)
           if (newData !== data) {
             window.requestAnimationFrame(() => setData(newData, () => setLoading(false)))
           }
         })
+      }
 
       fetch()
-      // int = setInterval(fetch, 1000)
-
-      document.onvisibilitychange = () => {
-        if (document.hidden) {
-          clearInterval(int)
-        } else {
-          // int = setInterval(fetch, 1000)
-        }
-      }
     }
   }))
 )(({ data, loading, onSubmit }: Props) => (
@@ -83,21 +79,22 @@ export default compose(
       <Search onSubmit={onSubmit} />
     </Section.Item>
 
-    {!loading && (
-      <Fragment>
-        <Section.Item row={2} start={4} end={14}>
-          <Feed {...data} />
-        </Section.Item>
+    {!loading &&
+      data.items && (
+        <Fragment>
+          <Section.Item row={2} start={4} end={14}>
+            <Feed {...data} />
+          </Section.Item>
 
-        <Section.Item row={2} start={15} end={26}>
-          <Media {...data} />
-        </Section.Item>
+          <Section.Item row={2} start={15} end={26}>
+            <Media {...data} />
+          </Section.Item>
 
-        <Section.Item row={2} start={27} end={-4}>
-          <Streams {...data} />
-        </Section.Item>
-      </Fragment>
-    )}
+          <Section.Item row={2} start={27} end={-4}>
+            <Streams {...data} />
+          </Section.Item>
+        </Fragment>
+      )}
 
     {loading && (
       <Section.Item>

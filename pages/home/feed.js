@@ -53,6 +53,7 @@ const Feed = styled.div`
 
 export default pure(({ items = [] }: { items: {}[] }) => (
   <Feed id="feed">
+    {!items && <em>None.</em>}
     {items.map(({ title, url, time }) => (
       <article key={`feed@${url}`}>
         <time>

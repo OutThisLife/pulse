@@ -23,7 +23,7 @@ export default withHandlers(() => ({
   pure(({ items = [], imgLoad }: { items: {}[], imgLoad: Function }) => (
     <Media>
       <h2>Media</h2>
-
+      {!items && <em>None.</em>}
       {items
         .filter(
           (item, index, self) =>

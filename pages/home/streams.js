@@ -7,7 +7,7 @@ import { Media } from './media'
 export default pure(({ streams = [] }: { streams: {}[] }) => (
   <Media>
     <h2>Livestreams</h2>
-
+    {!streams && <em>None.</em>}
     {streams
       .filter(i => i.videoRenderer)
       .map(({ videoRenderer: { videoId } }) => (

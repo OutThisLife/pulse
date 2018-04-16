@@ -15,7 +15,7 @@ const openWorker = () =>
 
 const init = cb => {
   if (thread) {
-    return
+    thread.kill()
   }
 
   thread = openWorker()
