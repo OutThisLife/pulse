@@ -1,12 +1,16 @@
 // @flow
-import { pure } from 'recompose'
+import { withState } from 'recompose'
 import styled from 'styled-components'
+import embed from 'embed-video'
 
 const IFrame = styled.div`
   position: relative;
   width: 100%;
-  height: 0px;
-  padding-top: 56.25%;
+
+  &.open {
+    height: 0px;
+    padding-top: 56.25%;
+  }
 
   iframe {
     position: absolute;
@@ -18,8 +22,24 @@ const IFrame = styled.div`
   }
 `
 
-export default pure(({ src }: { src: string }) => (
-  <IFrame>
-    <iframe src={src} />
-  </IFrame>
-))
+export default withState('isOpen', 'handleOpen', false)(
+  ({ src, handleOpen, isOpen }: { src: string, isOpen: boolean }) =>
+    ['youtube', 'vimeo'].some(s => src.toString().includes(s)) ? (
+      <IFrame
+        onClick={() => !isOpen && handleOpen(true)}
+        className={isOpen ? 'open' : ''}
+        key={src}
+        dangerouslySetInnerHTML={{
+          __html: isOpen
+            ? embed(src, {
+                query: {
+                  autoplay: 1
+                }
+              })
+            : embed.image(src, {
+                image: 'hqdefault'
+              })
+        }}
+      />
+    ) : null
+)

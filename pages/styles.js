@@ -61,7 +61,8 @@ export default css`
   img,
   svg,
   canvas,
-  video {
+  video,
+  iframe {
     max-width: 100%;
     height: auto;
     border: 0;

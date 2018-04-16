@@ -2,11 +2,16 @@
 import { pure } from 'recompose'
 
 import IFrame from '../../components/iframe'
+import { Media } from './media'
 
-export default pure(() => (
-  <div>
+export default pure(({ streams = [] }: { streams: {}[] }) => (
+  <Media>
     <h2>Livestreams</h2>
 
-    <IFrame src="https://www.youtube.com/embed/1DRNmZcVAEM" />
-  </div>
+    {streams
+      .filter(i => i.videoRenderer)
+      .map(({ videoRenderer: { videoId } }) => (
+        <IFrame key={videoId} src={`https://www.youtube.com/watch?v=${videoId}`} />
+      ))}
+  </Media>
 ))

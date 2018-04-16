@@ -1,6 +1,15 @@
 // @flow
 import { pure, withHandlers } from 'recompose'
 import mediumZoom from 'medium-zoom'
+import styled from 'styled-components'
+
+import IFrame from '../../components/iframe'
+
+export const Media = styled.div`
+  h2 ~ * {
+    margin-bottom: var(--cellSize);
+  }
+`
 
 export default withHandlers(() => ({
   imgLoad: () => ({ target }) => {
@@ -12,7 +21,7 @@ export default withHandlers(() => ({
   }
 }))(
   pure(({ items = [], imgLoad }: { items: {}[], imgLoad: Function }) => (
-    <div>
+    <Media>
       <h2>Media</h2>
 
       {items
@@ -22,13 +31,13 @@ export default withHandlers(() => ({
             self.findIndex(t => t.image === item.image && t.video === item.video) === index
         )
         .map(
-          ({ video, image }) =>
+          ({ video, image }, i) =>
             video ? (
-              <video key={`media@${video}`} src={video} controls />
+              <IFrame key={`media@${video + i}`} src={video} />
             ) : (
-              <img key={`media@${image}`} src={image} onLoad={imgLoad} />
+              <img key={`media@${image + i}`} src={image} onLoad={imgLoad} />
             )
         )}
-    </div>
+    </Media>
   ))
 )

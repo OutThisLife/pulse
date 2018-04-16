@@ -5,7 +5,7 @@ import { TweenLite } from 'gsap'
 import styled from 'styled-components'
 
 import theme from '../../utils/theme'
-import { fromTwitter } from '../../utils/crawl'
+import crawl from '../../utils/crawl'
 
 import Section from '../../components/section'
 import Search from './search'
@@ -15,14 +15,6 @@ import Streams from './streams'
 
 const Home = styled(Section)`
   padding-bottom: var(--cellSize);
-
-  input {
-    transform: translate(0, 40vh);
-  }
-
-  img + img {
-    margin-top: var(--cellSize);
-  }
 
   h2 {
     font-size: ${theme.scale(32, 41)};
@@ -42,17 +34,18 @@ const Home = styled(Section)`
 `
 
 type Props = {
-  data: {}[],
+  data: { tweets: {}, streams: {} }[],
   onSubmit: Function
 }
 
 let int = null
 
 export default compose(
-  withState('data', 'setData', []),
+  withState('data', 'setData', {}),
   withState('loading', 'setLoading', false),
   withHandlers(() => ({
     onSubmit: ({ data, setLoading, setData }) => ({ target: { s } }) => {
+      setData([])
       setLoading(true)
 
       TweenLite.to(
@@ -66,20 +59,20 @@ export default compose(
 
       clearInterval(int)
       const fetch = () =>
-        fromTwitter(s.value, newData => {
+        crawl(s.value, newData => {
           if (newData !== data) {
-            window.requestAnimationFrame(() => setData(() => newData.slice().reverse(), () => setLoading(false)))
+            window.requestAnimationFrame(() => setData(newData, () => setLoading(false)))
           }
         })
 
       fetch()
-      int = setInterval(fetch, 1000)
+      // int = setInterval(fetch, 1000)
 
       document.onvisibilitychange = () => {
         if (document.hidden) {
           clearInterval(int)
         } else {
-          int = setInterval(fetch, 1000)
+          // int = setInterval(fetch, 1000)
         }
       }
     }
@@ -90,22 +83,21 @@ export default compose(
       <Search onSubmit={onSubmit} />
     </Section.Item>
 
-    {!loading &&
-      data.length > 0 && (
-        <Fragment>
-          <Section.Item row={2} start={4} end={14}>
-            <Feed items={data} />
-          </Section.Item>
+    {!loading && (
+      <Fragment>
+        <Section.Item row={2} start={4} end={14}>
+          <Feed {...data} />
+        </Section.Item>
 
-          <Section.Item row={2} start={15} end={26}>
-            <Media items={data} />
-          </Section.Item>
+        <Section.Item row={2} start={15} end={26}>
+          <Media {...data} />
+        </Section.Item>
 
-          <Section.Item row={2} start={27} end={-4}>
-            <Streams items={data} />
-          </Section.Item>
-        </Fragment>
-      )}
+        <Section.Item row={2} start={27} end={-4}>
+          <Streams {...data} />
+        </Section.Item>
+      </Fragment>
+    )}
 
     {loading && (
       <Section.Item>

@@ -57,7 +57,7 @@ export default pure(({ items = [] }: { items: {}[] }) => (
       <article key={`feed@${url}`}>
         <time>
           <a href={url} target="_blank" rel="noreferrer noopener" alt={time}>
-            {moment(parseInt(time)).fromNow()}
+            {moment.unix(parseInt(time)).fromNow()}
           </a>
         </time>
 

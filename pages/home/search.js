@@ -14,6 +14,7 @@ const Search = styled.form`
     width: 100%;
     padding: calc(var(--cellSize) / 2);
     border: 2px solid transparent;
+    transform: translate(0, 40vh);
     background: rgba(0, 0, 0, 0.7);
 
     &::placeholder {
@@ -38,6 +39,7 @@ export default pure(props => (
       type="text"
       name="s"
       autoComplete="off"
+      autoFocus={+true}
       placeholder="Enter tags like #syria, #trump, #oil to see what the world is saying."
     />
   </Search>
